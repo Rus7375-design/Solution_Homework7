@@ -2,40 +2,31 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BingeIterator implements EpisodeIterator {
-    private final List<Season> seasons;
-    private int currentSeasonIndex = 0;
-    private EpisodeIterator currentSeasonIterator;
+    private final Iterator<Season> seasonIterator;
+    private Iterator<Episode> episodeIterator;
 
     public BingeIterator(List<Season> seasons) {
-        this.seasons = seasons;
-        if (!seasons.isEmpty()) {
-            currentSeasonIterator = seasons.get(0).createIterator();
-        }
+        this.seasonIterator = seasons.iterator();
+        this.episodeIterator = seasonIterator.hasNext() ? seasonIterator.next().iterator() : null;
     }
 
     @Override
     public boolean hasNext() {
-        while (currentSeasonIterator != null) {
-            if (currentSeasonIterator.hasNext()) {
-                return true;
+        while (episodeIterator != null && !episodeIterator.hasNext()) {
+            if (seasonIterator.hasNext()) {
+                episodeIterator = seasonIterator.next().iterator();
             } else {
-                currentSeasonIndex++;
-                if (currentSeasonIndex >= seasons.size()) {
-                    currentSeasonIterator = null;
-                    return false;
-                } else {
-                    currentSeasonIterator = seasons.get(currentSeasonIndex).createIterator();
-                }
+                episodeIterator = null;
             }
         }
-        return false;
+        return episodeIterator != null && episodeIterator.hasNext();
     }
 
     @Override
     public Episode next() {
         if (hasNext()) {
-            return currentSeasonIterator.next();
+            return episodeIterator.next();
         }
-        throw new IllegalStateException("Больше никаких эпизодов!");
+        throw new IllegalStateException("No more episodes");
     }
 }

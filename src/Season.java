@@ -1,17 +1,32 @@
+import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Season {
+public class Season implements Iterable<Episode> {
     private final List<Episode> episodes = new ArrayList<>();
 
     public void addEpisode(Episode episode) {
         episodes.add(episode);
     }
-    public List<Episode> getEpisodes() {
-        return episodes;
-    }
+
     public EpisodeIterator createIterator() {
         return new SeasonIterator(episodes);
     }
 
+    @Override
+    public Iterator<Episode> iterator() {
+        EpisodeIterator customIterator = createIterator();
+
+        return new Iterator<Episode>() {
+            @Override
+            public boolean hasNext() {
+                return customIterator.hasNext();
+            }
+
+            @Override
+            public Episode next() {
+                return customIterator.next();
+            }
+        };
+    }
 }

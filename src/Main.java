@@ -5,10 +5,10 @@ public class Main {
         season1.addEpisode(new Episode("Episode 2", 3500));
         season1.addEpisode(new Episode("Episode 3", 3400));
 
-        System.out.println("Reverse order:");
-        EpisodeIterator reverseIterator = season1.createReverseIterator();
-        while (reverseIterator.hasNext()) {
-            Episode episode = reverseIterator.next();
+        System.out.println("Shuffled order:");
+        EpisodeIterator shuffleIterator = season1.createShuffleIterator();
+        while (shuffleIterator.hasNext()) {
+            Episode episode = shuffleIterator.next();
             System.out.println(episode.getTitle() + " (" + episode.getRuntimeSec() + " sec)");
         }
     }

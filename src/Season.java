@@ -17,6 +17,10 @@ public class Season implements Iterable<Episode> {
         return new ReverseSeasonIterator(episodes);
     }
 
+    public EpisodeIterator createShuffleIterator() {
+        return new ShuffleSeasonIterator(episodes);
+    }
+
     @Override
     public Iterator<Episode> iterator() {
         EpisodeIterator customIterator = createIterator();

@@ -8,7 +8,7 @@ public class Series {
         seasons.add(season);
     }
 
-    public List<Season> getSeasons() {
-        return seasons;
+    public EpisodeIterator createBingeIterator() {
+        return new BingeIterator(seasons);
     }
 }

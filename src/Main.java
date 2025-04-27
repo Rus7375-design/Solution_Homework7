@@ -3,13 +3,20 @@ public class Main {
         Season season1 = new Season();
         season1.addEpisode(new Episode("Pilot", 3600));
         season1.addEpisode(new Episode("Episode 2", 3500));
-        season1.addEpisode(new Episode("Episode 3", 3400));
 
-        System.out.println("Shuffled order:");
-        EpisodeIterator shuffleIterator = season1.createShuffleIterator();
-        while (shuffleIterator.hasNext()) {
-            Episode episode = shuffleIterator.next();
-            System.out.println(episode.getTitle() + " (" + episode.getRuntimeSec() + " sec)");
+        Season season2 = new Season();
+        season2.addEpisode(new Episode("Season 2 Premiere", 3700));
+        season2.addEpisode(new Episode("Season 2 Episode 2", 3550));
+
+        Series series = new Series();
+        series.addSeason(season1);
+        series.addSeason(season2);
+
+        System.out.println("Приятного просмотра всех эпизодов:");
+        EpisodeIterator bingeIterator = series.createBingeIterator();
+        while (bingeIterator.hasNext()) {
+            Episode episode = bingeIterator.next();
+            System.out.println(episode.getTitle() + " (" + episode.getRuntimeSec() + " сек)");
         }
     }
 }

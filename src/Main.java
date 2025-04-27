@@ -5,8 +5,11 @@ public class Main {
         season1.addEpisode(new Episode("Episode 2", 3500));
         season1.addEpisode(new Episode("Episode 3", 3400));
 
-        for (Episode e : season1) {
-            System.out.println(e.getTitle() + " (" + e.getRuntimeSec() + " sec)");
+        System.out.println("Reverse order:");
+        EpisodeIterator reverseIterator = season1.createReverseIterator();
+        while (reverseIterator.hasNext()) {
+            Episode episode = reverseIterator.next();
+            System.out.println(episode.getTitle() + " (" + episode.getRuntimeSec() + " sec)");
         }
     }
 }

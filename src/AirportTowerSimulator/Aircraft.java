@@ -6,10 +6,9 @@ public abstract class Aircraft {
         this.id = id;
     }
 
-    public abstract void receive(String msg);
-
-    public void send(String msg, TowerMediator m) {
-        m.broadcast(msg, this);
+    public void send(String msg, TowerMediator mediator) {
+        mediator.broadcast(msg, this);
     }
-}
 
+    public abstract void receive(String msg);
+}

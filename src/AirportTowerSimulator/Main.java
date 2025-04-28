@@ -10,18 +10,13 @@ public class Main {
         passenger.send("Запрашиваю разрешение на взлет", tower);
         boolean grantedPassenger = tower.requestRunway(passenger);
 
-        cargo.send("Запрашиваю разрешение на взлет", tower);
-        boolean grantedCargo = tower.requestRunway(cargo);
-
+        cargo.send("MAYDAY", tower);
         helicopter.send("Запрашиваю разрешение на взлет", tower);
-        boolean grantedHelicopter = tower.requestRunway(helicopter);
+
+        tower.processEmergency();
 
         if (grantedPassenger) {
             System.out.println(passenger.id + " взлетел.");
-            tower.releaseRunway();
-        }
-        if (grantedCargo) {
-            System.out.println(cargo.id + " взлетел.");
             tower.releaseRunway();
         }
     }

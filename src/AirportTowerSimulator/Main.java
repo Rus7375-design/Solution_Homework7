@@ -2,17 +2,26 @@ package AirportTowerSimulator;
 public class Main {
     public static void main(String[] args) {
         ControlTower tower = new ControlTower();
-        PassengerPlane plane1 = new PassengerPlane("Plane-1");
-        PassengerPlane plane2 = new PassengerPlane("Plane-2");
 
-        plane1.send("Запрашиваю разрешение на взлет", tower);
-        boolean granted1 = tower.requestRunway(plane1);
+        PassengerPlane passenger = new PassengerPlane("Passenger-1");
+        CargoPlane cargo = new CargoPlane("Cargo-1");
+        Helicopter helicopter = new Helicopter("Helicopter-1");
 
-        plane2.send("Запрашиваю разрешение на взлет", tower);
-        boolean granted2 = tower.requestRunway(plane2);
+        passenger.send("Запрашиваю разрешение на взлет", tower);
+        boolean grantedPassenger = tower.requestRunway(passenger);
 
-        if (granted1) {
-            System.out.println(plane1.id + " взлетел.");
+        cargo.send("Запрашиваю разрешение на взлет", tower);
+        boolean grantedCargo = tower.requestRunway(cargo);
+
+        helicopter.send("Запрашиваю разрешение на взлет", tower);
+        boolean grantedHelicopter = tower.requestRunway(helicopter);
+
+        if (grantedPassenger) {
+            System.out.println(passenger.id + " взлетел.");
+            tower.releaseRunway();
+        }
+        if (grantedCargo) {
+            System.out.println(cargo.id + " взлетел.");
             tower.releaseRunway();
         }
     }

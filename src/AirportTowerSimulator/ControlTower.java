@@ -38,22 +38,35 @@ public class ControlTower implements TowerMediator {
     public void releaseRunway() {
         runwayAvailable = true;
         System.out.println("Полоса освободилась.");
-        if (!landingQueue.isEmpty()) {
+
+        if (emergencyInProgress) {
+            processEmergency();
+            emergencyInProgress = !emergencyQueue.isEmpty();
+        } else if (!landingQueue.isEmpty()) {
             Aircraft next = landingQueue.poll();
+            requestRunway(next);
+        } else if (!takeOffQueue.isEmpty()) {
+            Aircraft next = takeOffQueue.poll();
             requestRunway(next);
         }
     }
+
     public void handleEmergency(Aircraft aircraft) {
         System.out.println("АВАРИЯ! " + aircraft.id + " требует немедленной посадки!");
         emergencyQueue.add(aircraft);
-    }
-
-    public void processEmergency() {
-        if (!emergencyQueue.isEmpty()) {
-            Aircraft emergencyAircraft = emergencyQueue.poll();
-            System.out.println(emergencyAircraft.id + " немедленно садится!");
+        for (Aircraft waiting : landingQueue) {
+            waiting.receive("Внимание! Аварийная ситуация! Ожидайте команды от башни.");
+        }
+        for (Aircraft waiting : takeOffQueue) {
+            waiting.receive("Внимание! Аварийная ситуация! Ожидайте команды от башни.");
         }
     }
 
+    public void processEmergency() {
+        if (!emergencyQueue.isEmpty() && runwayAvailable) {
+            Aircraft emergencyAircraft = emergencyQueue.poll();
+            System.out.println(emergencyAircraft.id + " немедленно садится!");
+            runwayAvailable = false;
+        }
+    }
 }
-

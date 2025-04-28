@@ -1,4 +1,5 @@
 package AirportTowerSimulator;
+
 public class PassengerPlane extends Aircraft {
     public PassengerPlane(String id) {
         super(id);
@@ -9,4 +10,3 @@ public class PassengerPlane extends Aircraft {
         System.out.println("Пассажирский самолет " + id + " получил сообщение: " + msg);
     }
 }
-

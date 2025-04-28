@@ -1,3 +1,9 @@
+package StreamingServiceBingeMode;
+
+import StreamingServiceBingeMode.Episode;
+import StreamingServiceBingeMode.EpisodeIterator;
+import StreamingServiceBingeMode.ReverseSeasonIterator;
+
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;

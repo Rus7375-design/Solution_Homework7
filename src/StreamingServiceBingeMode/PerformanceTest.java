@@ -1,3 +1,8 @@
+package StreamingServiceBingeMode;
+
+import StreamingServiceBingeMode.Episode;
+import StreamingServiceBingeMode.EpisodeIterator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +13,7 @@ public class PerformanceTest {
         List<Episode> episodes = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 10000; i++) {
-            episodes.add(new Episode("Episode " + i, random.nextInt(3600)));
+            episodes.add(new Episode("StreamingServiceBingeMode.Episode " + i, random.nextInt(3600)));
         }
 
         Season season = new Season();

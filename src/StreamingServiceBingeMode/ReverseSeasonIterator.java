@@ -1,3 +1,8 @@
+package StreamingServiceBingeMode;
+
+import StreamingServiceBingeMode.Episode;
+import StreamingServiceBingeMode.EpisodeIterator;
+
 import java.util.List;
 
 public class ReverseSeasonIterator implements EpisodeIterator {
